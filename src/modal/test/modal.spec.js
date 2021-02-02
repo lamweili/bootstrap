@@ -519,6 +519,19 @@ describe('$uibModal', function() {
       expect($document).toHaveModalsOpen(0);
     });
 
+    it('should not close modal when initial click was on slider and mouseup on backdrop', function() {
+      var selector = 'div.modal-dialog';
+      open({template: '<div>Content</div>'});
+
+      expect($document).toHaveModalsOpen(1);
+
+      $document.find(selector).mousedown();
+      $document.find('body > div.modal').mouseup();
+      $document.find(selector).click();
+
+      expect($document).toHaveModalsOpen(1);
+    });
+
     it('should return to the element which had focus before the dialog was invoked', function() {
       var link = '<a href>Link</a>';
       var element = angular.element(link);
